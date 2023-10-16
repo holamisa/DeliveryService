@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 @Component
 public class TimerAop {
 
-    @Pointcut("@annotation(bj.delivery.api.annotation.Timer)")
+    @Pointcut("@annotation(bj.delivery.api.common.annotation.Timer)")
     public void timerPointCut(){}
 
     @Around(value = "timerPointCut()")

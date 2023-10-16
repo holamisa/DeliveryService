@@ -1,4 +1,4 @@
-package bj.delivery.api.account.model;
+package bj.delivery.api.accountNoUse.model;
 
 import lombok.Builder;
 import lombok.Data;
