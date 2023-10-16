@@ -3,6 +3,7 @@ package bj.delivery.api.domain.user.business;
 import bj.delivery.api.common.annotation.Business;
 import bj.delivery.api.common.error.ErrorCode;
 import bj.delivery.api.common.exception.ApiException;
+import bj.delivery.api.domain.user.controller.model.UserLoginRequest;
 import bj.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import bj.delivery.api.domain.user.controller.model.UserResponse;
 import bj.delivery.api.domain.user.converter.UserConverter;
@@ -39,5 +40,19 @@ public class UserBusiness {
                 .map(userConverter::toResponse)
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserRegisterRequest NULL"));
         */
+    }
+
+    /**
+     * 1. email, password 체크
+     * 2. user entity 확인
+     * 3. token 생성
+     * 4. TODO return token response
+     */
+    public UserResponse login(UserLoginRequest request) {
+        var userEntity = userService.login(request.getEmail(), request.getPassword());
+
+        // TODO 토근 생성 로직으로 변경
+
+        return userConverter.toResponse(userEntity);
     }
 }

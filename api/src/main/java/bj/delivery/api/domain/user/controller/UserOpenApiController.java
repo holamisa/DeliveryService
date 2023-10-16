@@ -2,6 +2,7 @@ package bj.delivery.api.domain.user.controller;
 
 import bj.delivery.api.common.api.Api;
 import bj.delivery.api.domain.user.business.UserBusiness;
+import bj.delivery.api.domain.user.controller.model.UserLoginRequest;
 import bj.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import bj.delivery.api.domain.user.controller.model.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,16 @@ public class UserOpenApiController {
             @RequestBody Api<UserRegisterRequest> request
     ){
         var response = userBusiness.register(request.getBody());
+        return Api.OK(response);
+    }
+
+    // 사용자 로그인
+    @PostMapping("/login")
+    public Api<UserResponse> login(
+            @Valid
+            @RequestBody Api<UserLoginRequest> request
+    ){
+        var response = userBusiness.login(request.getBody());
         return Api.OK(response);
     }
 }
