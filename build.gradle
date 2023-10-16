@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.16'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+// 하위에 있는 모든 프로젝트는 해당 설정으로 동작
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+// 부모 소스 빌드할때 bootJar+jar 파일 생성 안하게하기
+bootJar{
+    enabled = false
+}
+jar{
+    enabled = false
+}
