@@ -9,6 +9,7 @@ import bj.delivery.api.domain.user.controller.model.UserLoginRequest;
 import bj.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import bj.delivery.api.domain.user.controller.model.UserResponse;
 import bj.delivery.api.domain.user.converter.UserConverter;
+import bj.delivery.api.domain.user.model.UserDTO;
 import bj.delivery.api.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -33,8 +34,8 @@ public class UserBusiness {
 
         var entity = userConverter.toEntity(request);
         var newEntity = userService.register(entity);
-        var response = userConverter.toResponse(newEntity);
-        return response;
+
+        return userConverter.toResponse(newEntity);
 
         /*
         return Optional.ofNullable(request)
@@ -55,5 +56,9 @@ public class UserBusiness {
         var userEntity = userService.login(request.getEmail(), request.getPassword());
 
         return tokenBusiness.issueToken(userEntity);
+    }
+
+    public UserResponse me(UserDTO userDTO) {
+        return userConverter.toResponse(userDTO);
     }
 }
