@@ -3,6 +3,8 @@ package bj.delivery.api.domain.user.business;
 import bj.delivery.api.common.annotation.Business;
 import bj.delivery.api.common.error.ErrorCode;
 import bj.delivery.api.common.exception.ApiException;
+import bj.delivery.api.domain.token.business.TokenBusiness;
+import bj.delivery.api.domain.token.controller.model.TokenResponse;
 import bj.delivery.api.domain.user.controller.model.UserLoginRequest;
 import bj.delivery.api.domain.user.controller.model.UserRegisterRequest;
 import bj.delivery.api.domain.user.controller.model.UserResponse;
@@ -18,6 +20,7 @@ public class UserBusiness {
 
     private final UserService userService;
     private final UserConverter userConverter;
+    private final TokenBusiness tokenBusiness;
 
     /**
      * 사용자에 대한 가입처리 로직
@@ -48,11 +51,9 @@ public class UserBusiness {
      * 3. token 생성
      * 4. TODO return token response
      */
-    public UserResponse login(UserLoginRequest request) {
+    public TokenResponse login(UserLoginRequest request) {
         var userEntity = userService.login(request.getEmail(), request.getPassword());
 
-        // TODO 토근 생성 로직으로 변경
-
-        return userConverter.toResponse(userEntity);
+        return tokenBusiness.issueToken(userEntity);
     }
 }

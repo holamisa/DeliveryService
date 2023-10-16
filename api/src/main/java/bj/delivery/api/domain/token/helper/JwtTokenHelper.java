@@ -1,6 +1,5 @@
 package bj.delivery.api.domain.token.helper;
 
-import bj.delivery.api.common.error.ErrorCode;
 import bj.delivery.api.common.error.TokenErrorCode;
 import bj.delivery.api.common.exception.ApiException;
 import bj.delivery.api.domain.token.ifs.TokenHelperIfs;

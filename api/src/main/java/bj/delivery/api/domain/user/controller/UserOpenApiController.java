@@ -1,6 +1,7 @@
 package bj.delivery.api.domain.user.controller;
 
 import bj.delivery.api.common.api.Api;
+import bj.delivery.api.domain.token.controller.model.TokenResponse;
 import bj.delivery.api.domain.user.business.UserBusiness;
 import bj.delivery.api.domain.user.controller.model.UserLoginRequest;
 import bj.delivery.api.domain.user.controller.model.UserRegisterRequest;
@@ -32,7 +33,7 @@ public class UserOpenApiController {
 
     // 사용자 로그인
     @PostMapping("/login")
-    public Api<UserResponse> login(
+    public Api<TokenResponse> login(
             @Valid
             @RequestBody Api<UserLoginRequest> request
     ){
