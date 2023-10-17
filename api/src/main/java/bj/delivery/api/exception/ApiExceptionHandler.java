@@ -1,7 +1,7 @@
 package bj.delivery.api.exception;
 
 import bj.delivery.api.common.api.Api;
-가import bj.delivery.api.common.error.ErrorCode;
+import bj.delivery.api.common.error.ErrorCode;
 import bj.delivery.api.common.exception.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
