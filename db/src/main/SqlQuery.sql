@@ -50,3 +50,35 @@ COMMENT = '가맹점 메뉴';
 ALTER TABLE `delivery`.`store_menu`
     ADD INDEX `idx_store_id` (`store_id` ASC) VISIBLE;
 ;
+
+
+CREATE TABLE IF NOT EXISTS `delivery`.`user_order` (
+ `id` BIGINT(32) NOT NULL AUTO_INCREMENT,
+ `user_id` BIGINT(32) NOT NULL COMMENT '사용자 ID',
+ `store_id` BIGINT(32) NOT NULL COMMENT '가멩점 ID',
+ `status` VARCHAR(50) NOT NULL COMMENT '주문 상태',
+ `amount` DECIMAL(11,4) NOT NULL COMMENT '주문 가격',
+ `ordered_at` DATETIME NULL COMMENT '주문 일자',
+ `accepted_at` DATETIME NULL COMMENT '가맹점 주문 확인 일자',
+ `delivery_started_at` DATETIME NULL COMMENT '배달 시작 일자',
+ `received_at` DATETIME NULL COMMENT '배달 완료 일자',
+ PRIMARY KEY (`id`))
+ENGINE = InnoDB
+COMMENT = '사용자 주문 내역';
+ALTER TABLE `delivery`.`user_order`
+ADD INDEX `idx_user_id` (`user_id` ASC) VISIBLE;
+;
+
+
+CREATE TABLE IF NOT EXISTS `delivery`.`user_order_menu` (
+`id` BIGINT(32) NOT NULL AUTO_INCREMENT,
+`user_order_id` BIGINT(32) NOT NULL COMMENT '주문내역 ID',
+`store_menu_id` BIGINT(32) NOT NULL COMMENT '가맹점 메뉴 ID',
+`status` VARCHAR(50) NOT NULL COMMENT '상태',
+PRIMARY KEY (`id`))
+ENGINE = InnoDB
+COMMENT = '주문내역 메뉴';
+ALTER TABLE `delivery`.`user_order_menu`
+ADD INDEX `idx_user_order_id` (`user_order_id` ASC) VISIBLE,
+ADD INDEX `idx_store_menu_id` (`store_menu_id` ASC) VISIBLE;
+;
