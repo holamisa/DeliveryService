@@ -31,3 +31,22 @@ CREATE TABLE IF NOT EXISTS `delivery`.`store` (
 PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = '가맹점';
+
+
+CREATE TABLE IF NOT EXISTS `delivery`.`store_menu` (
+ `id` BIGINT(32) NOT NULL AUTO_INCREMENT,
+ `store_id` BIGINT(32) NOT NULL COMMENT '가게 ID',
+ `name` VARCHAR(100) NOT NULL COMMENT '메뉴 이름',
+ `amount` DECIMAL(11,4) NOT NULL COMMENT '메뉴 가격',
+ `status` VARCHAR(50) NOT NULL COMMENT '메뉴 상태',
+ `thumbnail_url` VARCHAR(200) NOT NULL COMMENT '사진 이미지',
+ `star` DOUBLE NULL DEFAULT 0 COMMENT '좋아요 카운트',
+ `sequence` INT NULL DEFAULT 0 COMMENT '정렬 순서',
+ `registered_at` DATETIME NULL COMMENT '등록 일자',
+ `unregistered_at` DATETIME NULL COMMENT '삭제 일자',
+ PRIMARY KEY (`id`))
+ENGINE = InnoDB
+COMMENT = '가맹점 메뉴';
+ALTER TABLE `delivery`.`store_menu`
+    ADD INDEX `idx_store_id` (`store_id` ASC) VISIBLE;
+;

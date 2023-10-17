@@ -33,7 +33,7 @@ public class StoreEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StoreCategory category;
 
-    private double star;
+    private double star; // DB에 디폴트 값이 0, 만약 null 들어가야하면 Double로 수정 필요
 
     @Column(length = 200, nullable = false)
     private String thumbnailUrl;
