@@ -1,6 +1,6 @@
 *** 간단한 배달 시스템 ***
 
-Framework : Spring Book 2.7.x, Spring Data Jpa 2.7.x
+Framework : Spring Boot 2.7.x, Spring Data Jpa 2.7.x
 Build Tool : Gradle, Groovy
 Language : Java 11
 Database Library : JPA
