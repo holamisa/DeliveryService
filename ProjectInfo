@@ -11,6 +11,7 @@ Database Server : MySQL 8.x
 2. Custom object mapper
 3. Swagger ui
 4. Filter, Interceptor, TimerAop
+5. Validation
 
 규칙
 1. JSON SnakeCase Naming

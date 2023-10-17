@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `delivery`.`store` (
 `name` VARCHAR(100) NOT NULL COMMENT '가게 이름',
 `address` VARCHAR(150) NOT NULL COMMENT '가게 주소',
 `status` VARCHAR(50) NOT NULL COMMENT '상태',
-`category` VARCHAR(50) NULL COMMENT '가게 분류',
+`category` VARCHAR(50) NOT NULL COMMENT '가게 분류',
 `star` DOUBLE NULL DEFAULT 0 COMMENT '별점',
 `thumbnail_url` VARCHAR(200) NOT NULL COMMENT '사진 이미지',
 `minimum_amount` DECIMAL(11,4) NOT NULL COMMENT '최소 주문 금액',

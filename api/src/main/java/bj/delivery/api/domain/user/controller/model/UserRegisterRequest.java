@@ -17,7 +17,7 @@ public class UserRegisterRequest {
     private String name;
 
     @NotBlank
-    @Email
+    @Email(message = "옳바른 메일 양식이 아닙니다.")
     private String email;
 
     @NotBlank
