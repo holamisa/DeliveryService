@@ -50,12 +50,18 @@ public class UserBusiness {
      * 1. email, password 체크
      * 2. user entity 확인
      * 3. token 생성
-     * 4. TODO return token response
+     * 4. return token response
      */
     public TokenResponse login(UserLoginRequest request) {
         var userEntity = userService.login(request.getEmail(), request.getPassword());
 
-        return tokenBusiness.issueToken(userEntity);
+        // 토큰 정상 발급 후 마지막 로그인 시간 업데이트
+        var tokenResponse = tokenBusiness.issueToken(userEntity);
+        if(tokenResponse != null){
+            userService.updateLoginAt(userEntity);
+        }
+
+        return tokenResponse;
     }
 
     public UserResponse me(UserDTO userDTO) {

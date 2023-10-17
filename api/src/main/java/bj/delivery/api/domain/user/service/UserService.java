@@ -41,6 +41,17 @@ public class UserService {
         return getUserWithThrow(email, password);
     }
 
+    public UserEntity updateLoginAt(
+            UserEntity userEntity
+    ){
+        return Optional.ofNullable(userEntity)
+                .map(x -> {
+                    x.setLastLoginAt(LocalDateTime.now());
+                    return userRepository.save(x);
+                })
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "User Entity NULL"));
+    }
+
     public UserEntity getUserWithThrow(
             String email,
             String password
