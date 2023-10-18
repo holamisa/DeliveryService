@@ -83,3 +83,19 @@ ALTER TABLE `delivery`.`user_order_menu`
 ADD INDEX `idx_user_order_id` (`user_order_id` ASC) VISIBLE,
 ADD INDEX `idx_store_menu_id` (`store_menu_id` ASC) VISIBLE;
 ;
+
+
+CREATE TABLE `delivery`.`store_user` (
+ `id` BIGINT(32) NOT NULL AUTO_INCREMENT COMMENT '가맹점 사용자 ID',
+ `store_id` BIGINT(32) NOT NULL COMMENT '가맹점 ID',
+ `email` VARCHAR(100) NOT NULL COMMENT '이메일',
+ `password` VARCHAR(100) NOT NULL COMMENT '비밀번호',
+ `status` VARCHAR(50) NOT NULL COMMENT '상태',
+ `role` VARCHAR(50) NOT NULL COMMENT '부여된 권한',
+ `registered_at` DATETIME NULL COMMENT '등록 일자',
+ `unregistered_at` DATETIME NULL COMMENT '해지 일자',
+ `last_login_at` DATETIME NULL COMMENT '마지막 로그인 일자',
+ PRIMARY KEY (`id`),
+ INDEX `idx_store_id` (`store_id` ASC) VISIBLE)
+ENGINE = InnoDB
+COMMENT = '가맹점 사용자';

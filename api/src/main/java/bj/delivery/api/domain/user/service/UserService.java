@@ -22,7 +22,7 @@ public class UserService {
         return Optional.ofNullable(userEntity)
                 .map(x -> {
                     // 중복가입 확인
-                    var duplicateUser = userRepository.findFirstByEmailAndStatusOrderByIdDesc(userEntity.getEmail(), UserStatus.REGISTERED);
+                    var duplicateUser = userRepository.findFirstByEmailAndStatusOrderByIdDesc(x.getEmail(), UserStatus.REGISTERED);
                     if(duplicateUser.isPresent()){
                         throw new ApiException(UserErrorCode.USER_DUPLICATE);
                     }
