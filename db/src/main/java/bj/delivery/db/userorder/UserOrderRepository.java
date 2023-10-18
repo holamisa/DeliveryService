@@ -16,4 +16,7 @@ public interface UserOrderRepository extends JpaRepository<UserOrderEntity, Long
 
     // select * from user_order where id = ? and user_id = ? and status = ? limit 1
     Optional<UserOrderEntity> findFirstByIdAndUserIdAndStatus(Long userOrderId, Long userId, UserOrderStatus status);
+
+    // select * from user_order where id = ? and user_id = ? limit 1
+    Optional<UserOrderEntity> findFirstByIdAndUserId(Long userOrderId, Long userId);
 }

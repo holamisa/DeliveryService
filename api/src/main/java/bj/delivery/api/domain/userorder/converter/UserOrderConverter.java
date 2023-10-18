@@ -50,21 +50,19 @@ public class UserOrderConverter {
                 .collect(Collectors.toList());
 
         return Optional.ofNullable(userOrderEntity)
-                .map(x -> {
-                    return UserOrderResponse.builder()
-                            .id(x.getId())
-                            .userId(x.getUserId())
-                            .storeId(x.getStoreId())
-                            .status(x.getStatus())
-                            .amount(x.getAmount())
-                            .orderedAt(x.getOrderedAt())
-                            .acceptedAt(x.getAcceptedAt())
-                            .cookingStartedAt(x.getCookingStartedAt())
-                            .deliveryStartedAt(x.getDeliveryStartedAt())
-                            .receivedAt(x.getReceivedAt())
-                            .userOrderMenuList(userOrderMenuList)
-                            .build();
-                })
+                .map(x -> UserOrderResponse.builder()
+                        .id(x.getId())
+                        .userId(x.getUserId())
+                        .storeId(x.getStoreId())
+                        .status(x.getStatus())
+                        .amount(x.getAmount())
+                        .orderedAt(x.getOrderedAt())
+                        .acceptedAt(x.getAcceptedAt())
+                        .cookingStartedAt(x.getCookingStartedAt())
+                        .deliveryStartedAt(x.getDeliveryStartedAt())
+                        .receivedAt(x.getReceivedAt())
+                        .userOrderMenuList(userOrderMenuList)
+                        .build())
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserOrderEntity NULL"));
     }
 }

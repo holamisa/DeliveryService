@@ -23,7 +23,7 @@ public class UserOrderService {
             Long userId
     ){
 
-        return userOrderRepository.findFirstByIdAndUserIdAndStatus(userOrderId, userId, UserOrderStatus.REGISTERED)
+        return userOrderRepository.findFirstByIdAndUserId(userOrderId, userId)
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
     }
 

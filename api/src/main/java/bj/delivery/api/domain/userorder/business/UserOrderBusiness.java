@@ -1,11 +1,15 @@
 package bj.delivery.api.domain.userorder.business;
 
 import bj.delivery.api.common.annotation.Business;
+import bj.delivery.api.common.error.ErrorCode;
 import bj.delivery.api.common.error.UserOrderErrorCode;
 import bj.delivery.api.common.exception.ApiException;
+import bj.delivery.api.domain.store.converter.StoreConverter;
 import bj.delivery.api.domain.store.service.StoreService;
+import bj.delivery.api.domain.storemenu.converter.StoreMenuConverter;
 import bj.delivery.api.domain.storemenu.service.StoreMenuService;
 import bj.delivery.api.domain.user.model.UserDTO;
+import bj.delivery.api.domain.userorder.controller.model.UserOrderDetailResponse;
 import bj.delivery.api.domain.userorder.controller.model.UserOrderRequest;
 import bj.delivery.api.domain.userorder.controller.model.UserOrderResponse;
 import bj.delivery.api.domain.userorder.converter.UserOrderConverter;
@@ -13,9 +17,12 @@ import bj.delivery.api.domain.userorder.service.UserOrderService;
 import bj.delivery.api.domain.userordermenu.converter.UserOrderMenuConverter;
 import bj.delivery.api.domain.userordermenu.service.UserOrderMenuService;
 import bj.delivery.db.storemenu.StoreMenuEntity;
+import bj.delivery.db.userorder.UserOrderEntity;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Business
@@ -23,18 +30,20 @@ import java.util.stream.Collectors;
 public class UserOrderBusiness {
 
     private final UserOrderService userOrderService;
-    private final StoreMenuService storeMenuService;
     private final UserOrderConverter userOrderConverter;
-    private final UserOrderMenuConverter userOrderMenuConverter;
     private final UserOrderMenuService userOrderMenuService;
+    private final UserOrderMenuConverter userOrderMenuConverter;
     private final StoreService storeService;
+    private final StoreConverter storeConverter;
+    private final StoreMenuService storeMenuService;
+    private final StoreMenuConverter storeMenuConverter;
 
     /**
      * 1. 사용자, 메뉴ID
      * 2. userOrder 생성
      * 3. userOrderMenu 생성
      */
-    public UserOrderResponse userOrder(
+    public UserOrderResponse userOrderRegister(
             UserDTO user,
             UserOrderRequest userOrderRequest
 
@@ -68,5 +77,61 @@ public class UserOrderBusiness {
                 .collect(Collectors.toList());
 
         return userOrderConverter.toResponse(saveUserOrderEntity, saveUserOrderMenuEntityList);
+    }
+
+    public List<UserOrderDetailResponse> getCurrentOrder(UserDTO user) {
+
+        var userOrderEntityList = userOrderService.getCurrentOrder(user.getId());
+
+        return getUserOrderDetailResponses(userOrderEntityList);
+    }
+
+    public List<UserOrderDetailResponse> getPastOrder(UserDTO user) {
+
+        var userOrderEntityList = userOrderService.getPastOrder(user.getId());
+
+        return getUserOrderDetailResponses(userOrderEntityList);
+    }
+
+    public UserOrderDetailResponse getUserOrder(
+            UserDTO user,
+            Long userOrderId
+    ){
+
+        var userOrderEntity = userOrderService.getUserOrderWithThrow(userOrderId, user.getId());
+
+        return getUserOrderDetailResponse(userOrderEntity);
+    }
+
+    private List<UserOrderDetailResponse> getUserOrderDetailResponses(List<UserOrderEntity> userOrderEntityList) {
+
+        return userOrderEntityList.stream()
+                .map(this::getUserOrderDetailResponse)
+                .collect(Collectors.toList());
+    }
+
+    private UserOrderDetailResponse getUserOrderDetailResponse(UserOrderEntity userOrderEntity){
+
+        return Optional.ofNullable(userOrderEntity)
+                .map(x -> {
+                    // 주문건 별 가맹점
+                    var storeId = x.getStoreId();
+                    var storeEntity = storeService.getStoreWithThrow(storeId);
+
+                    // 주문한 메뉴 리스트
+                    var userOrderMenuEntityList = userOrderMenuService.getUserOrderMenu(x.getId());
+
+                    // 주문한 메뉴 별 이름 리스트
+                    var storeMenuEntityList = userOrderMenuEntityList.stream()
+                            .map(userOrderMenuEntity -> storeMenuService.getStoreMenuWithThrow(userOrderMenuEntity.getStoreMenuId()))
+                            .collect(Collectors.toList());
+
+                    return UserOrderDetailResponse.builder()
+                            .userOrderResponse(userOrderConverter.toResponse(x, userOrderMenuEntityList))
+                            .storeResponse(storeConverter.toResponse(storeEntity))
+                            .storeMenuResponseList(storeMenuConverter.toReponse(storeMenuEntityList))
+                            .build();
+                })
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
     }
 }
