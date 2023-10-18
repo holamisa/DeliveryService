@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `delivery`.`user_order` (
  `amount` DECIMAL(11,4) NOT NULL COMMENT '주문 가격',
  `ordered_at` DATETIME NULL COMMENT '주문 일자',
  `accepted_at` DATETIME NULL COMMENT '가맹점 주문 확인 일자',
+ `cooking_started_at` DATETIME NULL COMMENT '조리 시작 일자',
  `delivery_started_at` DATETIME NULL COMMENT '배달 시작 일자',
  `received_at` DATETIME NULL COMMENT '배달 완료 일자',
  PRIMARY KEY (`id`))
