@@ -12,6 +12,7 @@ Database Server : MySQL 8.x
 3. Swagger ui
 4. Filter, Interceptor, TimerAop
 5. Validation
+6. Security Authorizing
 
 규칙
 1. JSON SnakeCase Naming

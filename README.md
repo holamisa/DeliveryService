@@ -2,7 +2,7 @@
 
 *** 간단한 배달 시스템 ***
 
-Framework : Spring Boot 2.7.x
+Framework : Spring Boot 2.7.x, Spring Security
 Build Tool : Gradle, Groovy
 Language : Java 11
 Database Library : JPA
@@ -14,6 +14,7 @@ Database Server : MySQL 8.x
 3. Swagger ui
 4. Filter, Interceptor, TimerAop
 5. Validation
+6. Security Authorizing
 
 규칙
 1. JSON SnakeCase Naming
