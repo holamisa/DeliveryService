@@ -1,6 +1,7 @@
 package bj.delivery.storeadmin.domain.user.business;
 
 import bj.delivery.storeadmin.common.annotation.Business;
+import bj.delivery.storeadmin.domain.authorization.model.UserSession;
 import bj.delivery.storeadmin.domain.store.service.StoreService;
 import bj.delivery.storeadmin.domain.user.controller.model.StoreUserRegisterRequest;
 import bj.delivery.storeadmin.domain.user.controller.model.StoreUserResponse;
@@ -25,5 +26,9 @@ public class StoreUserBusiness {
         var storeEntity = storeService.getStoreWithThrow(saveEntity.getStoreId());
 
         return storeUserConverter.toResponse(saveEntity, storeEntity);
+    }
+
+    public StoreUserResponse me(UserSession userSession){
+        return storeUserConverter.toResponse(userSession);
     }
 }

@@ -38,12 +38,24 @@ public class StoreUserService {
                     x.setRegisteredAt(LocalDateTime.now());
                     return storeUserRepository.save(x);
                 })
-                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "User Entity NULL"));
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "StoreUserEntity NULL"));
     }
 
     public StoreUserEntity getUserWithThrow(String email){
 
         return storeUserRepository.findFirstByEmailAndStatusOrderByIdDesc(email, StoreUserStatus.REGISTERED)
-                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
+                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+    }
+
+    public StoreUserEntity updateLogin(
+            StoreUserEntity storeUserEntity
+    ){
+
+        return Optional.ofNullable(storeUserEntity)
+                .map(x -> {
+                    x.setLastLoginAt(LocalDateTime.now());
+                    return storeUserRepository.save(x);
+                })
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "StoreUserEntity NULL"));
     }
 }

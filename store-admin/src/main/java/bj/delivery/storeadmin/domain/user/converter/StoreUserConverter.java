@@ -5,6 +5,7 @@ import bj.delivery.db.storeuser.StoreUserEntity;
 import bj.delivery.storeadmin.common.annotation.Converter;
 import bj.delivery.storeadmin.common.error.ErrorCode;
 import bj.delivery.storeadmin.common.exception.ApiException;
+import bj.delivery.storeadmin.domain.authorization.model.UserSession;
 import bj.delivery.storeadmin.domain.user.controller.model.StoreUserRegisterRequest;
 import bj.delivery.storeadmin.domain.user.controller.model.StoreUserResponse;
 
@@ -55,5 +56,32 @@ public class StoreUserConverter {
                         .category(storeEntity.getCategory())
                         .build())
                 .build();
+    }
+
+    public StoreUserResponse toResponse(
+            UserSession userSession
+    ){
+
+        return Optional.ofNullable(userSession)
+                .map(x -> StoreUserResponse.builder()
+                        .userResponse(
+                                StoreUserResponse.UserResponse.builder()
+                                        .id(x.getUserId())
+                                        .storeId(x.getStoreId())
+                                        .email(x.getEmail())
+                                        .status(x.getUserStatus())
+                                        .role(x.getRole())
+                                        .registeredAt(x.getRegisteredAt())
+                                        .unregisteredAt(x.getUnregisteredAt())
+                                        .lastLoginAt(x.getLastLoginAt())
+                                        .build())
+                        .storeResponse(StoreUserResponse.StoreResponse.builder()
+                                .id(x.getStoreId())
+                                .name(x.getStoreName())
+                                .status(x.getStoreStatus())
+                                .category(x.getStoreCategory())
+                                .build())
+                        .build())
+                .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT, "UserSession NULL"));
     }
 }
