@@ -2,6 +2,12 @@ server:
   port: 8080
 
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: Bongbong1!
+
   jpa:
     show-sql: true
     properties:

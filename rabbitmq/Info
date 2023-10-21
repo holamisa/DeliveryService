@@ -1,0 +1,6 @@
+
+
+1. YAML 파일 수정
+2. terminal / docker --> docker compose up -d 실행 (도커 실행 명령어)
+3. docker terminal --> rabbitmq-plugins enable rabbitmq_management (management 활성 명령어)
+4. localhost:15672 사이트 확인

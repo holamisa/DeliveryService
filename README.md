@@ -15,6 +15,8 @@ Database Server : MySQL 8.x
 4. Filter, Interceptor, TimerAop
 5. Validation
 6. Security Authorizing
+7. RabbitMQ
+    - API Server(Publisher) -> Exchange -> Queue <-> StoreAdmin Server(Consumer)
 
 규칙
 1. JSON SnakeCase Naming

@@ -13,6 +13,7 @@ import bj.delivery.api.domain.userorder.controller.model.UserOrderDetailResponse
 import bj.delivery.api.domain.userorder.controller.model.UserOrderRequest;
 import bj.delivery.api.domain.userorder.controller.model.UserOrderResponse;
 import bj.delivery.api.domain.userorder.converter.UserOrderConverter;
+import bj.delivery.api.domain.userorder.producer.UserOrderProducer;
 import bj.delivery.api.domain.userorder.service.UserOrderService;
 import bj.delivery.api.domain.userordermenu.converter.UserOrderMenuConverter;
 import bj.delivery.api.domain.userordermenu.service.UserOrderMenuService;
@@ -37,6 +38,7 @@ public class UserOrderBusiness {
     private final StoreConverter storeConverter;
     private final StoreMenuService storeMenuService;
     private final StoreMenuConverter storeMenuConverter;
+    private final UserOrderProducer userOrderProducer;
 
     /**
      * 1. 사용자, 메뉴ID
@@ -60,7 +62,7 @@ public class UserOrderBusiness {
         var totalAmount = storeMenuEntityList.stream()
                 .map(StoreMenuEntity::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        if(minimumAmount.compareTo(totalAmount) < 0){
+        if(minimumAmount.compareTo(totalAmount) >= 0){
             throw new ApiException(UserOrderErrorCode.MINIMUM_AMOUNT_NOT_SATISFY);
         }
 
@@ -75,6 +77,10 @@ public class UserOrderBusiness {
         var saveUserOrderMenuEntityList = userOrderMenuEntityList.stream()
                 .map(userOrderMenuService::registerUserOrderMenu)
                 .collect(Collectors.toList());
+
+
+        // 비동기 가맹점 주문 알림 (RabbitMq)
+        userOrderProducer.sendOrder(saveUserOrderEntity);
 
         return userOrderConverter.toResponse(saveUserOrderEntity, saveUserOrderMenuEntityList);
     }
