@@ -1,7 +1,5 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' // 버전 정보는 부모에서 갖고온다
-    id 'io.spring.dependency-management' // 버전 정보는 부모에서 갖고온다
 }
 
 group = 'bj.delivery'
