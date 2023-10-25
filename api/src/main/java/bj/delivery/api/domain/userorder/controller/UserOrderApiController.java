@@ -30,10 +30,10 @@ public class UserOrderApiController {
             @Parameter(hidden = true)
             @UserSession UserDTO user,
             @Valid
-            @RequestBody Api<UserOrderRequest> userOrderRequest
+            @RequestBody UserOrderRequest userOrderRequest
 
     ){
-        var response = userOrderBusiness.userOrderRegister(user, userOrderRequest.getBody());
+        var response = userOrderBusiness.userOrderRegister(user, userOrderRequest);
 
         return Api.OK(response);
     }
