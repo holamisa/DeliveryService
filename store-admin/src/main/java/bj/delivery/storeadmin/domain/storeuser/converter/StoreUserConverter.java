@@ -1,4 +1,4 @@
-package bj.delivery.storeadmin.domain.user.converter;
+package bj.delivery.storeadmin.domain.storeuser.converter;
 
 import bj.delivery.db.store.StoreEntity;
 import bj.delivery.db.storeuser.StoreUserEntity;
@@ -6,8 +6,8 @@ import bj.delivery.storeadmin.common.annotation.Converter;
 import bj.delivery.storeadmin.common.error.ErrorCode;
 import bj.delivery.storeadmin.common.exception.ApiException;
 import bj.delivery.storeadmin.domain.authorization.model.UserSession;
-import bj.delivery.storeadmin.domain.user.controller.model.StoreUserRegisterRequest;
-import bj.delivery.storeadmin.domain.user.controller.model.StoreUserResponse;
+import bj.delivery.storeadmin.domain.storeuser.controller.model.StoreUserRegisterRequest;
+import bj.delivery.storeadmin.domain.storeuser.controller.model.StoreUserResponse;
 
 import java.util.Optional;
 

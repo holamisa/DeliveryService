@@ -1,4 +1,4 @@
-package bj.delivery.storeadmin.domain.user.controller.model;
+package bj.delivery.storeadmin.domain.storeuser.controller.model;
 
 import bj.delivery.db.storeuser.enums.StoreUserRole;
 import lombok.AllArgsConstructor;

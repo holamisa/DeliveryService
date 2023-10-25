@@ -1,9 +1,9 @@
-package bj.delivery.storeadmin.domain.user.controller;
+package bj.delivery.storeadmin.domain.storeuser.controller;
 
 import bj.delivery.storeadmin.common.api.Api;
-import bj.delivery.storeadmin.domain.user.business.StoreUserBusiness;
-import bj.delivery.storeadmin.domain.user.controller.model.StoreUserRegisterRequest;
-import bj.delivery.storeadmin.domain.user.controller.model.StoreUserResponse;
+import bj.delivery.storeadmin.domain.storeuser.business.StoreUserBusiness;
+import bj.delivery.storeadmin.domain.storeuser.controller.model.StoreUserRegisterRequest;
+import bj.delivery.storeadmin.domain.storeuser.controller.model.StoreUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

@@ -2,6 +2,7 @@ package bj.delivery.storeadmin.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.PatternMatchUtils;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
@@ -14,6 +15,8 @@ import java.io.IOException;
 @Component
 public class LoggerFilter implements Filter {
 
+    private static final String[] whiteList = { "text/event-stream" }; // sse 는 패스하도록
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -22,7 +25,12 @@ public class LoggerFilter implements Filter {
 
         log.info("---->>>> init uri : {}", req.getRequestURI());
 
-        chain.doFilter(req, res);
+        if(PatternMatchUtils.simpleMatch(whiteList, req.getHeader("Accept"))){
+            chain.doFilter(req, response);
+        }
+        else{
+            chain.doFilter(req, res);
+        }
 
         // request 정보
         var headerNames = req.getHeaderNames();

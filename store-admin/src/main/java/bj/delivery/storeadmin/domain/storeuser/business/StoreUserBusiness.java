@@ -1,12 +1,12 @@
-package bj.delivery.storeadmin.domain.user.business;
+package bj.delivery.storeadmin.domain.storeuser.business;
 
 import bj.delivery.storeadmin.common.annotation.Business;
 import bj.delivery.storeadmin.domain.authorization.model.UserSession;
 import bj.delivery.storeadmin.domain.store.service.StoreService;
-import bj.delivery.storeadmin.domain.user.controller.model.StoreUserRegisterRequest;
-import bj.delivery.storeadmin.domain.user.controller.model.StoreUserResponse;
-import bj.delivery.storeadmin.domain.user.converter.StoreUserConverter;
-import bj.delivery.storeadmin.domain.user.service.StoreUserService;
+import bj.delivery.storeadmin.domain.storeuser.controller.model.StoreUserRegisterRequest;
+import bj.delivery.storeadmin.domain.storeuser.controller.model.StoreUserResponse;
+import bj.delivery.storeadmin.domain.storeuser.converter.StoreUserConverter;
+import bj.delivery.storeadmin.domain.storeuser.service.StoreUserService;
 import lombok.RequiredArgsConstructor;
 
 @Business

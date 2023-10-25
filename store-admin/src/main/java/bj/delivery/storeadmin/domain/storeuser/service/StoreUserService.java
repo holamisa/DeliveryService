@@ -1,4 +1,4 @@
-package bj.delivery.storeadmin.domain.user.service;
+package bj.delivery.storeadmin.domain.storeuser.service;
 
 import bj.delivery.db.storeuser.StoreUserEntity;
 import bj.delivery.db.storeuser.StoreUserRepository;

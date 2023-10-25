@@ -2,7 +2,7 @@ package bj.delivery.storeadmin.domain.authorization;
 
 import bj.delivery.storeadmin.domain.authorization.model.UserSession;
 import bj.delivery.storeadmin.domain.store.service.StoreService;
-import bj.delivery.storeadmin.domain.user.service.StoreUserService;
+import bj.delivery.storeadmin.domain.storeuser.service.StoreUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
